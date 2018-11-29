@@ -1,0 +1,12 @@
+---
+- hosts: node02
+  become: true
+  tasks:
+  - name: install vim
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - vim 
+      - git

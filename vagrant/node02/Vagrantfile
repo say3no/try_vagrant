@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  config.vm.define :node02 do |node02|
+    node02.vm.box = 'ubuntu16.04'
+    node02.vm.box_url = 'http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box'
+    node02.vm.hostname = 'node02'
+    define_machine_name(node02)
+    node02.vm.network :private_network, ip: '192.168.33.12' # NICが追加されている
+    node02.vm.network :forwarded_port, guest: 22, host: 22_022, id: 'ssh'
+    node02.vm.provision :ansible_local do |ansible|
+      ansible.playbook = node02.vm.hostname + '/playbook.yaml'
+    end
+  end
+
+  def define_machine_name(node)
+    node.vm.provider :virtualbox do |vbox|
+      vbox.name = node.vm.hostname
+    end
+  end
+end
