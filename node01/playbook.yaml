@@ -1,12 +1,14 @@
 ---
 - hosts: node01
+  gather_facts: false
   become: true
   tasks:
-  - name: install vim
+  - name: install vim and git
     apt:
       name: "{{ packages }}"
+      update_cache: true
       state: present
     vars:
       packages:
-      - vim 
-      - git
+        - vim
+        - git

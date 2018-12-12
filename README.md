@@ -6,7 +6,8 @@ ansible, serverspecあたりもついでに
 https://github.com/dotless-de/vagrant-vbguest
 
 ```sh
-vagrant plugin install vagrant-vbguest
-cd vagrant
 vagrant up
+ansible node01 -m ping
+ansible node02 -m ping
+vagrant provision
 ```
